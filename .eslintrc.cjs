@@ -9,20 +9,21 @@ module.exports = {
     'airbnb/hooks',
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
+    'plugin:prettier/recommended',
   ],
   overrides: [
     {
       env: {
         node: true,
       },
-      files: [
-        '.eslintrc.{js,cjs}',
-        'vite.config.ts',
-      ],
+      files: ['.eslintrc.{js,cjs}', 'vite.config.ts'],
       rules: {
-        'import/no-extraneous-dependencies': ['error', {
-          devDependencies: true,
-        }],
+        'import/no-extraneous-dependencies': [
+          'error',
+          {
+            devDependencies: true,
+          },
+        ],
       },
       parserOptions: {
         sourceType: 'script',
@@ -35,10 +36,7 @@ module.exports = {
     sourceType: 'module',
     project: './tsconfig.json',
   },
-  plugins: [
-    '@typescript-eslint',
-    'react',
-  ],
+  plugins: ['@typescript-eslint', 'react', 'prettier'],
   rules: {
     'react/react-in-jsx-scope': 0,
     'no-console': 0,
@@ -50,6 +48,7 @@ module.exports = {
     'comma-dangle': ['error', 'only-multiline'],
     'react/prop-types': 'off',
     'react/display-name': 'off',
+    'prettier/prettier': ['error', { trailingComma: 'es5' }],
   },
   settings: {
     react: {
