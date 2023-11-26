@@ -1,9 +1,9 @@
-function App() {
+function App(): JSX.Element {
   return (
     <div>
-      <h1>React Forms</h1>
+      React Forms
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
