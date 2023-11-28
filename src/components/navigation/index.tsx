@@ -1,17 +1,17 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 export default function Navigation(): JSX.Element {
   return (
     <nav>
       <ul>
         <li>
-          <Link to="/">Main</Link>
+          <NavLink to="/">Main</NavLink>
         </li>
         <li>
-          <Link to="/uncontrolled-form">Uncontrolled Form</Link>
+          <NavLink to="/uncontrolled-form">Uncontrolled Form</NavLink>
         </li>
         <li>
-          <Link to="/controlled-form">React Hook Form</Link>
+          <NavLink to="/controlled-form">React Hook Form</NavLink>
         </li>
       </ul>
     </nav>

@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import UncontrolledForm from './components/forms/uncontrolled';
 import ControlledForm from './components/forms/controlled';
 import Main from './components/main';
-import './index.css';
+import './index.scss';
 import Navigation from './components/navigation';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
