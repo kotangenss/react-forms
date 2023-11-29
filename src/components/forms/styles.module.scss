@@ -16,11 +16,10 @@ button {
 
 .default-input {
   position: relative;
-  margin: 5px 0 15px;
   border: 0;
   border-radius: 5px;
   outline: 1px solid $defaultOutline;
-  padding: 14px 50px 14px 16px;
+  padding: 10px 50px 10px 16px;
   width: 100%;
   background: white;
   box-sizing: border-box;
@@ -57,7 +56,9 @@ input:-webkit-autofill:active {
 .gender {
   display: flex;
   justify-content: space-evenly;
-  margin-bottom: 10px;
+  border: 1px solid $defaultOutline;
+  border-radius: 5px;
+  padding: 10px 0;
 }
 .countries {
   display: flex;
@@ -70,8 +71,7 @@ input:-webkit-autofill:active {
 
   select {
     padding: 5px 10px;
-    margin: 5px 0 15px;
-    height: 45px;
+    height: 40px;
   }
 }
 
@@ -92,12 +92,36 @@ input:-webkit-autofill:active {
 .accept {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .error {
   color: $error;
-  font-size: 14px;
+  font-size: 13px;
   text-align: center;
-  margin: 5px 0 10px;
+  margin: 5px 0 0;
+}
+
+.input-container {
+  height: 80px;
+  margin-bottom: 5px;
+}
+
+.country-container {
+  height: 95px;
+}
+
+.gender-container {
+  height: 60px;
+}
+
+.file-container {
+  height: 75px;
+  border: 1px solid $defaultOutline;
+  border-radius: 5px;
+  padding: 10px 0 5px;
+}
+
+.accept-container {
+  height: 45px;
 }

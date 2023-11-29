@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
+import { useNavigate } from 'react-router-dom';
 import TextInput from '../../inputs/textInput';
 import RadioInput from '../../inputs/radioInput';
 import CheckboxInput from '../../inputs/checkboxInput';
@@ -35,7 +36,6 @@ export default function UncontrolledForm(): JSX.Element {
     acceptTerms: '',
   });
   const countries = ['Country 1', 'Country 2', 'Country 3'];
-
   const nameRef = useRef(null);
   const ageRef = useRef(null);
   const emailRef = useRef(null);
@@ -46,6 +46,7 @@ export default function UncontrolledForm(): JSX.Element {
   const acceptTermsRef = useRef(null);
   const imageRef = useRef(null);
   const countryRef = useRef(null);
+  const navigate = useNavigate();
 
   const onChangeInput = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>): void => {
     const { id, value } = e.target;
@@ -84,6 +85,7 @@ export default function UncontrolledForm(): JSX.Element {
     try {
       await validationScheme.validate(formData, { abortEarly: false });
       dispatch(setDataValue(formData));
+      navigate('/');
     } catch (error) {
       if (error instanceof yup.ValidationError) {
         const newFormErrors: Record<keyof typeof formData, string> = {
@@ -112,109 +114,127 @@ export default function UncontrolledForm(): JSX.Element {
 
   return (
     <form className={styles['uncontrolled-form']} onSubmit={handleSubmit} noValidate>
-      <TextInput
-        label="Name"
-        type="text"
-        classNameInput={styles['default-input']}
-        classNameLabel={styles['default-label']}
-        id="name"
-        ref={nameRef}
-        placeholder="Name"
-        onChange={onChangeInput}
-      />
-      {formErrors.name && <div className={styles.error}>{formErrors.name}</div>}
-      <TextInput
-        label="Age"
-        type="number"
-        classNameInput={styles['default-input']}
-        classNameLabel={styles['default-label']}
-        id="age"
-        ref={ageRef}
-        placeholder="Age"
-        onChange={onChangeInput}
-      />
-      {formErrors.age && <div className={styles.error}>{formErrors.age}</div>}
-      <div className={styles.gender}>
-        <RadioInput
-          label="Male"
-          id="male"
-          name="gender"
-          ref={maleRef}
-          value="male"
-          onChange={onChangeRadio}
+      <div className={styles['input-container']}>
+        <TextInput
+          label="Name"
+          type="text"
+          classNameInput={styles['default-input']}
+          classNameLabel={styles['default-label']}
+          id="name"
+          ref={nameRef}
+          placeholder="Name"
+          onChange={onChangeInput}
         />
-        <RadioInput
-          label="Female"
-          id="female"
-          name="gender"
-          ref={femaleRef}
-          value="female"
-          onChange={onChangeRadio}
-        />
+        {formErrors.name && <div className={styles.error}>{formErrors.name}</div>}
       </div>
-      {formErrors.gender && <div className={styles.error}>{formErrors.gender}</div>}
-      <TextInput
-        label="Email"
-        type="email"
-        classNameInput={styles['default-input']}
-        classNameLabel={styles['default-label']}
-        id="email"
-        ref={emailRef}
-        placeholder="Email"
-        onChange={onChangeInput}
-      />
-      {formErrors.email && <div className={styles.error}>{formErrors.email}</div>}
-      <TextInput
-        label="Password"
-        type="password"
-        classNameInput={styles['default-input']}
-        classNameLabel={styles['default-label']}
-        id="password"
-        ref={passwordRef}
-        placeholder="Password"
-        onChange={onChangeInput}
-      />
-      {formErrors.password && <div className={styles.error}>{formErrors.password}</div>}
-      <TextInput
-        label="Confirm Password"
-        type="password"
-        classNameInput={styles['default-input']}
-        classNameLabel={styles['default-label']}
-        id="confirmPassword"
-        ref={confirmPasswordRef}
-        placeholder="Confirm Password"
-        onChange={onChangeInput}
-      />
-      {formErrors.confirmPassword && (
-        <div className={styles.error}>{formErrors.confirmPassword}</div>
-      )}
-      <SelectInput
-        label="Country"
-        id="country"
-        placeholder="Select country"
-        className={styles.countries}
-        ref={countryRef}
-        options={countries}
-        onChange={onChangeInput}
-      />
-      {formErrors.country && <div className={styles.error}>{formErrors.country}</div>}
-      <FileInput
-        label="Upload Image"
-        id="image"
-        className={styles['file-loader']}
-        ref={imageRef}
-        accept=".png, .jpeg, .jpg, .svg, .gif, .bmp, .webp, .tiff, .tif, .ico, .jp2"
-        onChange={handleImageChange}
-      />
-      {formErrors.image && <div className={styles.error}>{formErrors.image}</div>}
-      <CheckboxInput
-        label="Accept the terms"
-        id="check"
-        className={styles.accept}
-        ref={acceptTermsRef}
-        onChange={onChangeCheckbox}
-      />
-
+      <div className={styles['input-container']}>
+        <TextInput
+          label="Age"
+          type="number"
+          classNameInput={styles['default-input']}
+          classNameLabel={styles['default-label']}
+          id="age"
+          ref={ageRef}
+          placeholder="Age"
+          onChange={onChangeInput}
+        />
+        {formErrors.age && <div className={styles.error}>{formErrors.age}</div>}
+      </div>
+      <div className={`${styles['input-container']} ${styles['gender-container']}`}>
+        <div className={styles.gender}>
+          <RadioInput
+            label="Male"
+            id="male"
+            name="gender"
+            ref={maleRef}
+            value="male"
+            onChange={onChangeRadio}
+          />
+          <RadioInput
+            label="Female"
+            id="female"
+            name="gender"
+            ref={femaleRef}
+            value="female"
+            onChange={onChangeRadio}
+          />
+        </div>
+        {formErrors.gender && <div className={styles.error}>{formErrors.gender}</div>}
+      </div>
+      <div className={styles['input-container']}>
+        <TextInput
+          label="Email"
+          type="email"
+          classNameInput={styles['default-input']}
+          classNameLabel={styles['default-label']}
+          id="email"
+          ref={emailRef}
+          placeholder="Email"
+          onChange={onChangeInput}
+        />
+        {formErrors.email && <div className={styles.error}>{formErrors.email}</div>}
+      </div>
+      <div className={styles['input-container']}>
+        <TextInput
+          label="Password"
+          type="password"
+          classNameInput={styles['default-input']}
+          classNameLabel={styles['default-label']}
+          id="password"
+          ref={passwordRef}
+          placeholder="Password"
+          onChange={onChangeInput}
+        />
+        {formErrors.password && <div className={styles.error}>{formErrors.password}</div>}
+      </div>
+      <div className={styles['input-container']}>
+        <TextInput
+          label="Confirm Password"
+          type="password"
+          classNameInput={styles['default-input']}
+          classNameLabel={styles['default-label']}
+          id="confirmPassword"
+          ref={confirmPasswordRef}
+          placeholder="Confirm Password"
+          onChange={onChangeInput}
+        />
+        {formErrors.confirmPassword && (
+          <div className={styles.error}>{formErrors.confirmPassword}</div>
+        )}
+      </div>
+      <div className={`${styles['input-container']} ${styles['country-container']}`}>
+        <SelectInput
+          label="Country"
+          id="country"
+          placeholder="Select country"
+          className={styles.countries}
+          ref={countryRef}
+          options={countries}
+          onChange={onChangeInput}
+        />
+        {formErrors.country && <div className={styles.error}>{formErrors.country}</div>}
+      </div>
+      <div className={`${styles['input-container']} ${styles['file-container']}`}>
+        <FileInput
+          label="Upload Image"
+          id="image"
+          className={styles['file-loader']}
+          ref={imageRef}
+          accept=".png, .jpeg, .jpg, .svg, .gif, .bmp, .webp, .tiff, .tif, .ico, .jp2"
+          onChange={handleImageChange}
+        />
+        {formErrors.image && <div className={styles.error}>{formErrors.image}</div>}
+      </div>
+      <div className={`${styles['input-container']} ${styles['accept-container']}`}>
+        <CheckboxInput
+          label="Accept the terms"
+          id="acceptTerms"
+          className={styles.accept}
+          ref={acceptTermsRef}
+          onChange={onChangeCheckbox}
+        />
+        {formErrors.acceptTerms && <div className={styles.error}>{formErrors.acceptTerms}</div>}
+      </div>
       <button type="submit">Submit</button>
     </form>
   );

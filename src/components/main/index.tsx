@@ -7,13 +7,7 @@ export default function Main(): JSX.Element {
   const getDataValue = (state: RootState): Data => state.data.value;
   const dataValueUncontrolled = useSelector(getDataValue);
   const { name, age, gender, email, password, country, image, acceptTerms } = dataValueUncontrolled;
-  let termsStatus;
-
-  if (acceptTerms === undefined) {
-    termsStatus = '';
-  } else {
-    termsStatus = acceptTerms ? 'Accepted' : 'Not accepted';
-  }
+  const termsStatus = acceptTerms === undefined ? '' : 'Accepted';
 
   return (
     <div className={styles['data-uncontrolled']}>

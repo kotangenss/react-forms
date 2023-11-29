@@ -18,9 +18,7 @@ const validationScheme = yup.object().shape({
   email: yup
     .string()
     .required('Email field is required')
-    .email(
-      'Invalid email address. The "@" symbol must be present and at least one period after the "@" symbol must be present.'
-    ),
+    .email('Please include "@" and at least one period after "@"'),
   password: yup
     .string()
     .transform((originalValue) => originalValue.trim())
@@ -46,6 +44,7 @@ const validationScheme = yup.object().shape({
       return file.includes('image/png') || file.includes('image/jpeg');
     }),
   country: yup.string().required('Country field is required'),
+  acceptTerms: yup.boolean().oneOf([true], 'Message'),
 });
 
 export default validationScheme;
