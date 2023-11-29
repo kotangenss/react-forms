@@ -1,7 +1,7 @@
 import React, { ChangeEvent, Ref } from 'react';
-import { InputProps } from '../../../interfaces/input';
+import { InputSelectProps } from '../../../interfaces/input';
 
-const SelectInput = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
+const SelectInput = React.forwardRef<HTMLInputElement, InputSelectProps>((props, ref) => {
   const { label, id, placeholder, className, options, onChange } = props;
 
   const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>): void => {

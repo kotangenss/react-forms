@@ -12,5 +12,9 @@ export interface InputProps {
   checked?: boolean;
   accept?: string;
   options?: string[];
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export interface InputSelectProps extends InputProps {
   onChange?: (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
 }
