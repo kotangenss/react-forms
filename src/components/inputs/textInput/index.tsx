@@ -1,8 +1,8 @@
 import React from 'react';
-import { InputProps } from '../../interfaces/input';
+import { InputProps } from '../../../interfaces/input';
 
 const TextInput = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
-  const { label, type, classNameInput, classNameLabel, id, placeholder } = props;
+  const { label, type, classNameInput, classNameLabel, id, placeholder, onChange } = props;
 
   return (
     <div>
@@ -15,7 +15,7 @@ const TextInput = React.forwardRef<HTMLInputElement, InputProps>((props, ref) =>
         className={classNameInput}
         ref={ref}
         placeholder={placeholder}
-        required
+        onChange={onChange}
       />
     </div>
   );

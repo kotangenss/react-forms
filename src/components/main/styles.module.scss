@@ -1,0 +1,24 @@
+@import '../../scss/allVariables.scss';
+
+.data-uncontrolled {
+  box-sizing: border-box;
+  padding: 5px 30px 25px;
+  border-radius: 5px;
+  border: 1px solid $defaultInput;
+  max-width: 500px;
+
+  img {
+    max-width: 100%;
+    outline: 1px solid $defaultOutline;
+    border-radius: 2px;
+  }
+
+  p {
+    color: gray;
+
+    span {
+      color: black;
+      font-weight: 700;
+    }
+  }
+}
