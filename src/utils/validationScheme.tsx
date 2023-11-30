@@ -1,4 +1,5 @@
 import * as yup from 'yup';
+import countryList from './countries';
 
 const validationScheme = yup.object().shape({
   name: yup
@@ -23,10 +24,13 @@ const validationScheme = yup.object().shape({
     .string()
     .transform((originalValue) => originalValue.trim())
     .required('Password field is required')
-    .matches(/\d/, 'Password must contain at least one digit')
-    .matches(/[a-z]/, 'Password must contain at least one lowercase letter')
-    .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
-    .matches(/[!@#$%^&*(),.?":{}|<>]/, 'Password must contain at least one special character'),
+    .matches(/\d/, 'Insecure password: must contain at least one digit')
+    .matches(/[a-z]/, 'Insecure password: must contain at least one lowercase letter')
+    .matches(/[A-Z]/, 'Insecure password: must contain at least one uppercase letter')
+    .matches(
+      /[!@#$%^&*(),.?":{}|<>]/,
+      'Insecure password: must contain at least one special character'
+    ),
   confirmPassword: yup.string().oneOf([yup.ref('password'), undefined], 'Passwords must match'),
   image: yup
     .mixed()
@@ -43,8 +47,11 @@ const validationScheme = yup.object().shape({
       const file = value as string;
       return file.includes('image/png') || file.includes('image/jpeg');
     }),
-  country: yup.string().required('Country field is required'),
-  acceptTerms: yup.boolean().oneOf([true], 'Message'),
+  country: yup
+    .string()
+    .required('Country field is required')
+    .oneOf(countryList, 'Please select from the provided list'),
+  acceptTerms: yup.boolean().oneOf([true], 'You must accept the Terms and Conditions'),
 });
 
 export default validationScheme;

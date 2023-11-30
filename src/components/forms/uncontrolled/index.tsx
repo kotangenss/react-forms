@@ -6,10 +6,11 @@ import TextInput from '../../inputs/textInput';
 import RadioInput from '../../inputs/radioInput';
 import CheckboxInput from '../../inputs/checkboxInput';
 import FileInput from '../../inputs/fileInput';
-import SelectInput from '../../inputs/selectInput';
 import styles from '../styles.module.scss';
 import { setDataValue } from '../../../store/dataSliceUncontrolled';
 import validationScheme from '../../../utils/validationScheme';
+import AutocompleteInput from '../../inputs/autocompleteInput';
+import countryList from '../../../utils/countries';
 
 export default function UncontrolledForm(): JSX.Element {
   const dispatch = useDispatch();
@@ -35,7 +36,6 @@ export default function UncontrolledForm(): JSX.Element {
     image: '',
     acceptTerms: '',
   });
-  const countries = ['Country 1', 'Country 2', 'Country 3'];
   const nameRef = useRef(null);
   const ageRef = useRef(null);
   const emailRef = useRef(null);
@@ -45,8 +45,11 @@ export default function UncontrolledForm(): JSX.Element {
   const femaleRef = useRef(null);
   const acceptTermsRef = useRef(null);
   const imageRef = useRef(null);
-  const countryRef = useRef(null);
   const navigate = useNavigate();
+  const suggestionSelected = (value: string): void => {
+    const field: string = 'country';
+    setFormData((prevData) => ({ ...prevData, [field]: value }));
+  };
 
   const onChangeInput = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>): void => {
     const { id, value } = e.target;
@@ -141,6 +144,7 @@ export default function UncontrolledForm(): JSX.Element {
         {formErrors.age && <div className={styles.error}>{formErrors.age}</div>}
       </div>
       <div className={`${styles['input-container']} ${styles['gender-container']}`}>
+        <p className={styles['default-label']}>Gender</p>
         <div className={styles.gender}>
           <RadioInput
             label="Male"
@@ -174,6 +178,17 @@ export default function UncontrolledForm(): JSX.Element {
         />
         {formErrors.email && <div className={styles.error}>{formErrors.email}</div>}
       </div>
+      <div className={`${styles['input-container']} ${styles['country-container']}`}>
+        <AutocompleteInput
+          items={countryList}
+          onSuggestionSelected={suggestionSelected}
+          label="Country"
+          id="country"
+          classNameInput={styles['default-input']}
+          classNameLabel={styles['default-label']}
+        />
+        {formErrors.country && <div className={styles.error}>{formErrors.country}</div>}
+      </div>
       <div className={styles['input-container']}>
         <TextInput
           label="Password"
@@ -201,18 +216,6 @@ export default function UncontrolledForm(): JSX.Element {
         {formErrors.confirmPassword && (
           <div className={styles.error}>{formErrors.confirmPassword}</div>
         )}
-      </div>
-      <div className={`${styles['input-container']} ${styles['country-container']}`}>
-        <SelectInput
-          label="Country"
-          id="country"
-          placeholder="Select country"
-          className={styles.countries}
-          ref={countryRef}
-          options={countries}
-          onChange={onChangeInput}
-        />
-        {formErrors.country && <div className={styles.error}>{formErrors.country}</div>}
       </div>
       <div className={`${styles['input-container']} ${styles['file-container']}`}>
         <FileInput

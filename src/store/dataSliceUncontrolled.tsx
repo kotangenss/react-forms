@@ -8,6 +8,7 @@ export interface DispatchData {
 
 export interface DataState {
   value: Data;
+  countries: string[];
 }
 
 const initialState: DataState = {
@@ -22,6 +23,7 @@ const initialState: DataState = {
     image: '',
     acceptTerms: undefined,
   },
+  countries: ['Country'],
 };
 
 const dataSlice = createSlice({
@@ -31,8 +33,11 @@ const dataSlice = createSlice({
     setDataValue: (state, action): void => {
       state.value = action.payload;
     },
+    setCountries: (state, action): void => {
+      state.countries = action.payload;
+    },
   },
 });
 
-export const { setDataValue } = dataSlice.actions;
+export const { setDataValue, setCountries } = dataSlice.actions;
 export default dataSlice.reducer;
