@@ -1,18 +1,47 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import { RootState } from '../../store';
 import { Data } from '../../interfaces/formData';
 import styles from './styles.module.scss';
+import { setIsUpdated as setIsUpdatedUncontrolledForm } from '../../store/dataSliceUncontrolled';
+import { setIsUpdated as setIsUpdatedControlledForm } from '../../store/dataSliceControlled';
 
 export default function Main(): JSX.Element {
-  const getDataValue = (state: RootState): Data => state.dataUncontrolled.value;
-  const dataValueUncontrolled = useSelector(getDataValue);
+  const dispatch = useDispatch();
+
+  const getDataValueUncontrolled = (state: RootState): Data => state.dataUncontrolled.value;
+  const dataValueUncontrolled = useSelector(getDataValueUncontrolled);
 
   const getDataValueControlled = (state: RootState): Data => state.dataControlled.value;
   const dataValueControlled = useSelector(getDataValueControlled);
 
+  const getIsUpdatedUncontrolled = (state: RootState): boolean => state.dataUncontrolled.isUpdated;
+  const dataIsUpdateUncontrolled = useSelector(getIsUpdatedUncontrolled);
+
+  const getIsUpdatedControlled = (state: RootState): boolean => state.dataControlled.isUpdated;
+  const dataIsUpdateControlled = useSelector(getIsUpdatedControlled);
+
+  const uncontrolledFormClassList = [styles['data-uncontrolled']].concat(
+    dataIsUpdateUncontrolled ? [styles.updated] : []
+  );
+  const controlledFormClassList = [styles['data-controlled']].concat(
+    dataIsUpdateControlled ? [styles.updated] : []
+  );
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (dataIsUpdateUncontrolled) {
+        dispatch(setIsUpdatedUncontrolledForm(false));
+      }
+      if (dataIsUpdateControlled) {
+        dispatch(setIsUpdatedControlledForm(false));
+      }
+    }, 3000);
+  }, [dataIsUpdateUncontrolled, dataIsUpdateControlled, dispatch]);
+
   return (
     <div className={styles.forms}>
-      <div className={styles['data-uncontrolled']}>
+      <div className={uncontrolledFormClassList.join(' ')}>
         <h2>Data from uncontrolled form</h2>
         <p>
           Name: <span>{dataValueUncontrolled.name}</span>
@@ -41,7 +70,7 @@ export default function Main(): JSX.Element {
           <img src={dataValueUncontrolled.image} alt="User's uploaded profile file" />
         )}
       </div>
-      <div className={styles['data-controlled']}>
+      <div className={controlledFormClassList.join(' ')}>
         <h2>Data from controlled form</h2>
         <p>
           Name: <span>{dataValueControlled.name}</span>

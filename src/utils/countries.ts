@@ -6,7 +6,6 @@ const countryList = [
   'Andorra',
   'Angola',
   'Anguilla',
-  'Antarctica',
   'Antigua and Barbuda',
   'Argentina',
   'Armenia',

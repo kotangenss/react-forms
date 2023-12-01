@@ -4,6 +4,7 @@ import { Data } from '../interfaces/formData';
 export interface DataState {
   value: Data;
   countries: string[];
+  isUpdated: boolean;
 }
 
 const initialState: DataState = {
@@ -19,6 +20,7 @@ const initialState: DataState = {
     acceptTerms: undefined,
   },
   countries: ['Country'],
+  isUpdated: false,
 };
 
 const dataSlice = createSlice({
@@ -31,8 +33,11 @@ const dataSlice = createSlice({
     setCountries: (state, action): void => {
       state.countries = action.payload;
     },
+    setIsUpdated: (state, action): void => {
+      state.isUpdated = action.payload;
+    },
   },
 });
 
-export const { setDataValue, setCountries } = dataSlice.actions;
+export const { setDataValue, setCountries, setIsUpdated } = dataSlice.actions;
 export default dataSlice.reducer;

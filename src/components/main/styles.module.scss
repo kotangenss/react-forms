@@ -31,3 +31,64 @@
 .forms {
   display: flex;
 }
+
+.updated {
+  animation: animation 3s ease infinite;
+}
+
+@keyframes animation {
+  0% {
+    scale: 1.03;
+    outline: 3px solid $defaultInput;
+  }
+
+  10% {
+    scale: 1;
+    outline: 3px solid $accent;
+  }
+
+  20% {
+    scale: 1.03;
+    outline: 3px solid $defaultInput;
+  }
+
+  30% {
+    scale: 1;
+    outline: 3px solid $accent;
+  }
+
+  40% {
+    scale: 1.03;
+    outline: 3px solid $defaultInput;
+  }
+
+  50% {
+    scale: 1;
+    outline: 3px solid $accent;
+  }
+
+  60% {
+    scale: 1.03;
+    outline: 3px solid $defaultInput;
+  }
+
+  70% {
+    scale: 1;
+    outline: 3px solid $accent;
+  }
+
+  80% {
+    scale: 1.03;
+    outline: 3px solid $defaultInput;
+  }
+
+  90% {
+    scale: 1;
+    outline: 3px solid $accent;
+  }
+
+  100% {
+    scale: 1.03;
+    outline: 3px solid $defaultInput;
+  }
+}

@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { DataControlled } from '../../../interfaces/formData';
-import { setDataValue } from '../../../store/dataSliceControlled';
+import { setDataValue, setIsUpdated } from '../../../store/dataSliceControlled';
 import {
   TextInput,
   CheckboxInput,
@@ -45,6 +45,7 @@ export default function ControlledForm(): JSX.Element {
       dispatch(setDataValue(updData));
     };
     reader.readAsDataURL(file);
+    dispatch(setIsUpdated(true));
     navigate('/');
   };
 
@@ -227,7 +228,6 @@ export default function ControlledForm(): JSX.Element {
           errorMessage={errors && errors.password && errors.password?.message}
         />
       </div>
-
       <div className={styles['input-container']}>
         <TextInput
           label="Confirm Password"
@@ -270,7 +270,6 @@ export default function ControlledForm(): JSX.Element {
           errorMessage={errors && errors.acceptTerms && errors.acceptTerms?.message}
         />
       </div>
-
       <button type="submit">Submit</button>
     </form>
   );

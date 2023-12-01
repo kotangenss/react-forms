@@ -9,7 +9,7 @@ import {
   FileInput,
   AutocompleteInput,
 } from '../../inputs/forUncontrolled';
-import { setDataValue } from '../../../store/dataSliceUncontrolled';
+import { setDataValue, setIsUpdated } from '../../../store/dataSliceUncontrolled';
 import validationScheme from '../../../utils/validationScheme';
 import countryList from '../../../utils/countries';
 import styles from '../styles.module.scss';
@@ -90,6 +90,7 @@ export default function UncontrolledForm(): JSX.Element {
     try {
       await validationScheme.validate(formData, { abortEarly: false });
       dispatch(setDataValue(formData));
+      dispatch(setIsUpdated(true));
       navigate('/');
     } catch (error) {
       if (error instanceof yup.ValidationError) {
