@@ -56,6 +56,7 @@ module.exports = {
         ignorePropertyModificationsFor: ['state'],
       },
     ],
+    'react/jsx-props-no-spreading': 'off',
   },
   settings: {
     react: {

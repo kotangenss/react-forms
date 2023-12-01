@@ -1,10 +1,18 @@
 import React, { ChangeEvent, useState } from 'react';
-import styles from './styles.module.scss';
-import { InputAutocompleteProps } from '../../../interfaces/input';
+import { InputAutocompleteProps } from '../../../../interfaces/input';
 
 const AutocompleteInput = React.forwardRef<HTMLInputElement, InputAutocompleteProps>(
   (props, ref) => {
-    const { items, onSuggestionSelected, label, id, classNameInput, classNameLabel } = props;
+    const {
+      items,
+      onSuggestionSelected,
+      label,
+      id,
+      classNameInput,
+      classNameLabel,
+      classNameList,
+      classNameListItem,
+    } = props;
     const [suggestions, setSuggestions] = useState<string[]>([]);
     const [text, setText] = useState('');
 
@@ -33,13 +41,13 @@ const AutocompleteInput = React.forwardRef<HTMLInputElement, InputAutocompletePr
         return null;
       }
       return (
-        <div className={styles['search-list']}>
+        <div className={classNameList}>
           <ul>
             {suggestions.map((item) => (
               <li key={item}>
                 <button
                   type="button"
-                  className={styles['suggestion-link']}
+                  className={classNameListItem}
                   onClick={() => suggestionSelected(item)}
                 >
                   {item}

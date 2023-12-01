@@ -2,15 +2,17 @@ import { ChangeEvent, FormEvent, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';
-import TextInput from '../../inputs/textInput';
-import RadioInput from '../../inputs/radioInput';
-import CheckboxInput from '../../inputs/checkboxInput';
-import FileInput from '../../inputs/fileInput';
-import styles from '../styles.module.scss';
+import {
+  TextInput,
+  CheckboxInput,
+  RadioInput,
+  FileInput,
+  AutocompleteInput,
+} from '../../inputs/forUncontrolled';
 import { setDataValue } from '../../../store/dataSliceUncontrolled';
 import validationScheme from '../../../utils/validationScheme';
-import AutocompleteInput from '../../inputs/autocompleteInput';
 import countryList from '../../../utils/countries';
+import styles from '../styles.module.scss';
 
 export default function UncontrolledForm(): JSX.Element {
   const dispatch = useDispatch();
@@ -152,6 +154,7 @@ export default function UncontrolledForm(): JSX.Element {
             name="gender"
             ref={maleRef}
             value="male"
+            className={styles['gender-wrapper']}
             onChange={onChangeRadio}
           />
           <RadioInput
@@ -160,6 +163,7 @@ export default function UncontrolledForm(): JSX.Element {
             name="gender"
             ref={femaleRef}
             value="female"
+            className={styles['gender-wrapper']}
             onChange={onChangeRadio}
           />
         </div>
@@ -186,6 +190,8 @@ export default function UncontrolledForm(): JSX.Element {
           id="country"
           classNameInput={styles['default-input']}
           classNameLabel={styles['default-label']}
+          classNameList={styles['search-list']}
+          classNameListItem={styles['suggestion-link']}
         />
         {formErrors.country && <div className={styles.error}>{formErrors.country}</div>}
       </div>
@@ -221,9 +227,9 @@ export default function UncontrolledForm(): JSX.Element {
         <FileInput
           label="Upload Image"
           id="image"
-          className={styles['file-loader']}
           ref={imageRef}
           accept=".png, .jpeg, .jpg, .svg, .gif, .bmp, .webp, .tiff, .tif, .ico, .jp2"
+          className={styles['file-loader']}
           onChange={handleImageChange}
         />
         {formErrors.image && <div className={styles.error}>{formErrors.image}</div>}
@@ -232,7 +238,8 @@ export default function UncontrolledForm(): JSX.Element {
         <CheckboxInput
           label="Accept the terms"
           id="acceptTerms"
-          className={styles.accept}
+          className={styles['accept-controlled']}
+          classNameLabel={styles['default-label']}
           ref={acceptTermsRef}
           onChange={onChangeCheckbox}
         />

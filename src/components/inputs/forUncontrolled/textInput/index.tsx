@@ -1,5 +1,5 @@
 import React from 'react';
-import { InputProps } from '../../../interfaces/input';
+import { InputProps } from '../../../../interfaces/input';
 
 const TextInput = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   const { label, type, classNameInput, classNameLabel, id, placeholder, onChange } = props;

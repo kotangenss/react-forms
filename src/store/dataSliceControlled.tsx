@@ -22,7 +22,7 @@ const initialState: DataState = {
 };
 
 const dataSlice = createSlice({
-  name: 'data',
+  name: 'dataControlled',
   initialState,
   reducers: {
     setDataValue: (state, action): void => {

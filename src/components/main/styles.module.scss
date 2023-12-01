@@ -1,11 +1,12 @@
 @import '../../scss/allVariables.scss';
 
-.data-uncontrolled {
+.data-uncontrolled,
+.data-controlled {
   box-sizing: border-box;
   padding: 5px 30px 25px;
   border-radius: 5px;
   border: 1px solid $defaultInput;
-  max-width: 500px;
+  width: 420px;
 
   img {
     max-width: 100%;
@@ -21,4 +22,12 @@
       font-weight: 700;
     }
   }
+}
+
+.data-uncontrolled {
+  margin-right: 20px;
+}
+
+.forms {
+  display: flex;
 }

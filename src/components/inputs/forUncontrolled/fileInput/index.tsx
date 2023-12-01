@@ -1,8 +1,8 @@
 import React from 'react';
-import { InputProps } from '../../../interfaces/input';
+import { InputProps } from '../../../../interfaces/input';
 
 const FileInput = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
-  const { label, id, className, accept, onChange } = props;
+  const { label, id, accept, className, onChange } = props;
 
   return (
     <div className={className}>
