@@ -1,14 +1,12 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import type { PreloadedState } from '@reduxjs/toolkit';
 import { ToolkitStore } from '@reduxjs/toolkit/dist/configureStore';
-import dataReducerUncontrolled from './dataSliceUncontrolled';
-import dataReducerControlled from './dataSliceControlled';
 import dataReducerCountries from './dataSliceCountries';
+import dataReducersForms from './dataSliceForms';
 
 const rootReducer = combineReducers({
-  dataUncontrolled: dataReducerUncontrolled,
-  dataControlled: dataReducerControlled,
   dataCountries: dataReducerCountries,
+  dataForms: dataReducersForms,
 });
 
 export const store = configureStore({

@@ -8,7 +8,7 @@ import {
   FileInput,
   AutocompleteInput,
 } from '../../inputs/forUncontrolled';
-import { setDataValue, setIsUpdated } from '../../../store/dataSliceUncontrolled';
+import { setData } from '../../../store/dataSliceForms';
 import styles from '../styles.module.scss';
 import validation from '../../../utils/validation';
 import { Data, FormError } from '../../../interfaces/formData';
@@ -106,8 +106,7 @@ export default function UncontrolledForm(): JSX.Element {
     const { errors } = await validation<Data>(formData);
 
     if (Object.keys(errors).length === 0) {
-      dispatch(setDataValue(formData));
-      dispatch(setIsUpdated(true));
+      dispatch(setData({ name: 'uncontrolled form', fields: formData }));
       navigate('/');
     } else {
       const newFormErrors = prepareFormErrors(errors as Record<keyof Data, { message: string }>);

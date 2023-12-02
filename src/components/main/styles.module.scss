@@ -30,6 +30,9 @@
 
 .forms {
   display: flex;
+  flex-wrap: wrap;
+  max-width: 80%;
+  row-gap: 20px;
 }
 
 .updated {

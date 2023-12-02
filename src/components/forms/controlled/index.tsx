@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { DataControlled } from '../../../interfaces/formData';
-import { setDataValue, setIsUpdated } from '../../../store/dataSliceControlled';
+import { setData } from '../../../store/dataSliceForms';
 import {
   TextInput,
   CheckboxInput,
@@ -40,10 +40,9 @@ export default function ControlledForm(): JSX.Element {
     const reader = new FileReader();
     reader.onloadend = (): void => {
       const updData = { ...data, image: reader.result };
-      dispatch(setDataValue(updData));
+      dispatch(setData({ name: 'controlled form', fields: updData }));
     };
     reader.readAsDataURL(file);
-    dispatch(setIsUpdated(true));
     navigate('/');
   };
 
