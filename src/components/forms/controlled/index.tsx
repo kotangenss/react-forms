@@ -1,5 +1,5 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useEffect } from 'react';
+import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { DataControlled } from '../../../interfaces/formData';
@@ -11,28 +11,24 @@ import {
   FileInput,
   AutocompleteInput,
 } from '../../inputs/forControlled';
-import validateName from '../../../utils/validate/name';
-import validateAge from '../../../utils/validate/age';
-import validateEmail from '../../../utils/validate/email';
-import validatePassword from '../../../utils/validate/password';
-import сonfirmPassword from '../../../utils/validate/confirmPassword';
-import acceptTerms from '../../../utils/validate/acceptTerms';
-import validateFile from '../../../utils/validate/file';
-import validateGender from '../../../utils/validate/gender';
 import countryList from '../../../utils/countries';
-import validateAutocomplete from '../../../utils/validate/autocomplete';
 import styles from '../styles.module.scss';
+import validation from '../../../utils/validation';
+import { ValidationResult } from '../../../interfaces/validation';
+
+const useYupValidationResolver = (): ((data: DataControlled) => ValidationResult) =>
+  useCallback(async (data: DataControlled) => validation<DataControlled>(data), []);
 
 export default function ControlledForm(): JSX.Element {
+  const resolver = useYupValidationResolver();
   const {
     register,
     handleSubmit,
     formState: { errors, dirtyFields },
-    watch,
-    trigger,
     setValue,
   } = useForm<DataControlled>({
     defaultValues: {},
+    resolver,
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -49,73 +45,7 @@ export default function ControlledForm(): JSX.Element {
     navigate('/');
   };
 
-  const name = watch('name');
-  const age = watch('age');
-  const gender = watch('gender');
-  const email = watch('email');
-  const country = watch('country');
-  const password = watch('password');
-  const confirmPassword = watch('confirmPassword');
-  const image = watch('image');
-  const acceptTerm = watch('acceptTerms');
-
-  useEffect(() => {
-    if (name && dirtyFields?.name) {
-      trigger('name');
-    }
-
-    if (age && dirtyFields?.age) {
-      trigger('age');
-    }
-
-    if (gender && dirtyFields?.gender) {
-      trigger('gender');
-    }
-
-    if (email && dirtyFields?.email) {
-      trigger('email');
-    }
-
-    if (country && dirtyFields?.country) {
-      trigger('country');
-    }
-
-    if (password && dirtyFields?.password) {
-      trigger('password');
-    }
-
-    if (confirmPassword && dirtyFields?.confirmPassword) {
-      trigger('confirmPassword');
-    }
-
-    if (image && dirtyFields?.image) {
-      trigger('image');
-    }
-
-    if (acceptTerm && dirtyFields?.acceptTerms) {
-      trigger('acceptTerms');
-    }
-  }, [
-    acceptTerm,
-    age,
-    confirmPassword,
-    country,
-    dirtyFields?.acceptTerms,
-    dirtyFields?.age,
-    dirtyFields?.confirmPassword,
-    dirtyFields?.country,
-    dirtyFields?.email,
-    dirtyFields?.gender,
-    dirtyFields?.image,
-    dirtyFields?.name,
-    dirtyFields?.password,
-    email,
-    gender,
-    image,
-    name,
-    password,
-    trigger,
-  ]);
+  console.log(dirtyFields);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -127,10 +57,7 @@ export default function ControlledForm(): JSX.Element {
           placeholder="Name"
           classNameLabel={styles['default-label']}
           classNameInput={styles['default-input']}
-          hookData={register('name', {
-            required: 'The field is required',
-            validate: validateName,
-          })}
+          hookData={register('name')}
           errorMessage={errors && errors.name && errors.name?.message}
         />
       </div>
@@ -142,10 +69,7 @@ export default function ControlledForm(): JSX.Element {
           placeholder="Age"
           classNameLabel={styles['default-label']}
           classNameInput={styles['default-input']}
-          hookData={register('age', {
-            required: 'The field is required',
-            validate: validateAge,
-          })}
+          hookData={register('age')}
           errorMessage={errors && errors.age && errors.age?.message}
         />
       </div>
@@ -159,10 +83,7 @@ export default function ControlledForm(): JSX.Element {
             value="male"
             className={styles['gender-wrapper']}
             classNameInput={styles['default-input']}
-            hookData={register('gender', {
-              required: 'The field is required',
-              validate: validateGender,
-            })}
+            hookData={register('gender')}
           />
           <RadioInput
             label="Female"
@@ -171,10 +92,7 @@ export default function ControlledForm(): JSX.Element {
             value="female"
             className={styles['gender-wrapper']}
             classNameInput={styles['default-input']}
-            hookData={register('gender', {
-              required: 'The field is required',
-              validate: validateGender,
-            })}
+            hookData={register('gender')}
           />
           {errors && errors.gender && errors.gender?.message && (
             <div className={styles.error}>{errors.gender?.message}</div>
@@ -189,10 +107,7 @@ export default function ControlledForm(): JSX.Element {
           placeholder="Email"
           classNameLabel={styles['default-label']}
           classNameInput={styles['default-input']}
-          hookData={register('email', {
-            required: 'The field is required',
-            validate: validateEmail,
-          })}
+          hookData={register('email')}
           errorMessage={errors && errors.email && errors.email?.message}
         />
       </div>
@@ -205,10 +120,7 @@ export default function ControlledForm(): JSX.Element {
           classNameLabel={styles['default-label']}
           classNameList={styles['search-list']}
           classNameListItem={styles['suggestion-link']}
-          hookData={register('country', {
-            required: 'The field is required',
-            validate: validateAutocomplete,
-          })}
+          hookData={register('country')}
           errorMessage={errors && errors.country && errors.country?.message}
           setValue={setValue}
         />
@@ -221,10 +133,7 @@ export default function ControlledForm(): JSX.Element {
           placeholder="Password"
           classNameLabel={styles['default-label']}
           classNameInput={styles['default-input']}
-          hookData={register('password', {
-            required: 'The field is required',
-            validate: validatePassword,
-          })}
+          hookData={register('password')}
           errorMessage={errors && errors.password && errors.password?.message}
         />
       </div>
@@ -236,10 +145,7 @@ export default function ControlledForm(): JSX.Element {
           placeholder="Confirm Password"
           classNameLabel={styles['default-label']}
           classNameInput={styles['default-input']}
-          hookData={register('confirmPassword', {
-            required: 'The field is required',
-            validate: (value) => сonfirmPassword(value, watch('password')),
-          })}
+          hookData={register('confirmPassword')}
           errorMessage={errors && errors.confirmPassword && errors.confirmPassword?.message}
         />
       </div>
@@ -249,10 +155,7 @@ export default function ControlledForm(): JSX.Element {
           id="image"
           className={styles['file-loader']}
           classNameLabel={styles['default-label']}
-          hookData={register('image', {
-            required: 'The field is required',
-            validate: validateFile,
-          })}
+          hookData={register('image')}
           errorMessage={errors && errors.image && errors.image?.message}
         />
       </div>
@@ -263,14 +166,16 @@ export default function ControlledForm(): JSX.Element {
           className={styles['accept-controlled']}
           classNameLabel={styles['default-label']}
           classNameInput={styles.accept}
-          hookData={register('acceptTerms', {
-            required: 'The field is required',
-            validate: acceptTerms,
-          })}
+          hookData={register('acceptTerms')}
           errorMessage={errors && errors.acceptTerms && errors.acceptTerms?.message}
         />
       </div>
-      <button type="submit">Submit</button>
+      <button
+        type="submit"
+        disabled={Object.keys(errors).length !== 0 || Object.keys(dirtyFields).length !== 9}
+      >
+        Submit
+      </button>
     </form>
   );
 }

@@ -1,6 +1,5 @@
 import { ChangeEvent, FormEvent, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import {
   TextInput,
@@ -10,13 +9,28 @@ import {
   AutocompleteInput,
 } from '../../inputs/forUncontrolled';
 import { setDataValue, setIsUpdated } from '../../../store/dataSliceUncontrolled';
-import validationScheme from '../../../utils/validationScheme';
 import countryList from '../../../utils/countries';
 import styles from '../styles.module.scss';
+import validation from '../../../utils/validation';
+import { Data, FormError } from '../../../interfaces/formData';
+
+function prepareFormErrors(errors: Record<keyof Data, { message: string }>): FormError {
+  return {
+    name: errors.name?.message,
+    age: errors.age?.message,
+    gender: errors.gender?.message,
+    email: errors.email?.message,
+    password: errors.password?.message,
+    confirmPassword: errors.confirmPassword?.message,
+    country: errors.country?.message,
+    image: errors.image?.message,
+    acceptTerms: errors.acceptTerms?.message,
+  };
+}
 
 export default function UncontrolledForm(): JSX.Element {
   const dispatch = useDispatch();
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<Data>({
     name: '',
     age: '',
     gender: '',
@@ -27,7 +41,7 @@ export default function UncontrolledForm(): JSX.Element {
     image: null,
     acceptTerms: false,
   });
-  const [formErrors, setFormErrors] = useState({
+  const [formErrors, setFormErrors] = useState<FormError>({
     name: '',
     age: '',
     gender: '',
@@ -87,34 +101,15 @@ export default function UncontrolledForm(): JSX.Element {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
 
-    try {
-      await validationScheme.validate(formData, { abortEarly: false });
+    const { errors } = await validation<Data>(formData);
+
+    if (Object.keys(errors).length === 0) {
       dispatch(setDataValue(formData));
       dispatch(setIsUpdated(true));
       navigate('/');
-    } catch (error) {
-      if (error instanceof yup.ValidationError) {
-        const newFormErrors: Record<keyof typeof formData, string> = {
-          name: '',
-          age: '',
-          gender: '',
-          email: '',
-          password: '',
-          confirmPassword: '',
-          country: '',
-          image: '',
-          acceptTerms: '',
-        };
-
-        error.inner.forEach((validationError) => {
-          if (validationError.path) {
-            const fieldName = validationError.path.toString() as keyof typeof formData;
-            newFormErrors[fieldName] = validationError.message;
-          }
-        });
-
-        setFormErrors(newFormErrors);
-      }
+    } else {
+      const newFormErrors = prepareFormErrors(errors as Record<keyof Data, { message: string }>);
+      setFormErrors(newFormErrors);
     }
   };
 

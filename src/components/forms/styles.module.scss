@@ -2,6 +2,10 @@
 
 button {
   @include button;
+
+  &:disabled {
+    color: gray;
+  }
 }
 
 .default-label {
