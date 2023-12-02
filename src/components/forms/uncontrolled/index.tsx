@@ -12,7 +12,7 @@ import { setData } from '../../../store/dataSliceForms';
 import styles from '../styles.module.scss';
 import validation from '../../../utils/validation';
 import { Data, FormError } from '../../../interfaces/formData';
-import { RootState } from '../../../store';
+import { getCountries } from '../../../store/selectors/countries';
 
 function prepareFormErrors(errors: Record<keyof Data, { message: string }>): FormError {
   return {
@@ -62,8 +62,7 @@ export default function UncontrolledForm(): JSX.Element {
   const acceptTermsRef = useRef(null);
   const imageRef = useRef(null);
   const navigate = useNavigate();
-  const getDataValueCountries = (state: RootState): string[] => state.dataCountries.value;
-  const countryList = useSelector(getDataValueCountries);
+  const countryList = useSelector(getCountries);
   const suggestionSelected = (value: string): void => {
     const field: string = 'country';
     setFormData((prevData) => ({ ...prevData, [field]: value }));

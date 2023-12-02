@@ -40,6 +40,7 @@ export default function AutocompleteInput(props: InputAutocompletePropsControlle
     if (suggestions.length === 0) {
       return null;
     }
+
     return (
       <div className={classNameList}>
         <ul>

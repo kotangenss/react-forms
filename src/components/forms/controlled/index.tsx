@@ -14,7 +14,7 @@ import {
 import styles from '../styles.module.scss';
 import validation from '../../../utils/validation';
 import { ValidationResult } from '../../../interfaces/validation';
-import { RootState } from '../../../store';
+import { getCountries } from '../../../store/selectors/countries';
 
 const useYupValidationResolver = (): ((data: DataControlled) => ValidationResult) =>
   useCallback(async (data: DataControlled) => validation<DataControlled>(data), []);
@@ -26,24 +26,29 @@ export default function ControlledForm(): JSX.Element {
     handleSubmit,
     formState: { errors, dirtyFields },
     setValue,
+    trigger,
   } = useForm<DataControlled>({
     defaultValues: {},
     resolver,
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const getDataValueCountries = (state: RootState): string[] => state.dataCountries.value;
-  const countryList = useSelector(getDataValueCountries);
+  const countryList = useSelector(getCountries);
 
   const onSubmit: SubmitHandler<DataControlled> = (data): void => {
     const file = data.image[0];
     const reader = new FileReader();
     reader.onloadend = (): void => {
       const updData = { ...data, image: reader.result };
-      dispatch(setData({ name: 'controlled form', fields: updData }));
+      dispatch(setData({ name: 'react hook form', fields: updData }));
     };
     reader.readAsDataURL(file);
     navigate('/');
+  };
+
+  const setAutocompleteValue = (name: keyof DataControlled, value: string): void => {
+    setValue(name, value);
+    trigger(name);
   };
 
   return (
@@ -56,7 +61,7 @@ export default function ControlledForm(): JSX.Element {
           placeholder="Name"
           classNameLabel={styles['default-label']}
           classNameInput={styles['default-input']}
-          hookData={register('name')}
+          hookData={register('name', { onChange: () => trigger('name') })}
           errorMessage={errors && errors.name && errors.name?.message}
         />
       </div>
@@ -68,7 +73,7 @@ export default function ControlledForm(): JSX.Element {
           placeholder="Age"
           classNameLabel={styles['default-label']}
           classNameInput={styles['default-input']}
-          hookData={register('age')}
+          hookData={register('age', { onChange: () => trigger('age') })}
           errorMessage={errors && errors.age && errors.age?.message}
         />
       </div>
@@ -106,7 +111,7 @@ export default function ControlledForm(): JSX.Element {
           placeholder="Email"
           classNameLabel={styles['default-label']}
           classNameInput={styles['default-input']}
-          hookData={register('email')}
+          hookData={register('email', { onChange: () => trigger('email') })}
           errorMessage={errors && errors.email && errors.email?.message}
         />
       </div>
@@ -119,9 +124,9 @@ export default function ControlledForm(): JSX.Element {
           classNameLabel={styles['default-label']}
           classNameList={styles['search-list']}
           classNameListItem={styles['suggestion-link']}
-          hookData={register('country')}
+          hookData={register('country', { onChange: () => trigger('country') })}
           errorMessage={errors && errors.country && errors.country?.message}
-          setValue={setValue}
+          setValue={setAutocompleteValue}
         />
       </div>
       <div className={styles['input-container']}>
@@ -132,7 +137,7 @@ export default function ControlledForm(): JSX.Element {
           placeholder="Password"
           classNameLabel={styles['default-label']}
           classNameInput={styles['default-input']}
-          hookData={register('password')}
+          hookData={register('password', { onChange: () => trigger('password') })}
           errorMessage={errors && errors.password && errors.password?.message}
         />
       </div>
@@ -144,7 +149,7 @@ export default function ControlledForm(): JSX.Element {
           placeholder="Confirm Password"
           classNameLabel={styles['default-label']}
           classNameInput={styles['default-input']}
-          hookData={register('confirmPassword')}
+          hookData={register('confirmPassword', { onChange: () => trigger('confirmPassword') })}
           errorMessage={errors && errors.confirmPassword && errors.confirmPassword?.message}
         />
       </div>
@@ -154,7 +159,7 @@ export default function ControlledForm(): JSX.Element {
           id="image"
           className={styles['file-loader']}
           classNameLabel={styles['default-label']}
-          hookData={register('image')}
+          hookData={register('image', { onChange: () => trigger('image') })}
           errorMessage={errors && errors.image && errors.image?.message}
         />
       </div>
@@ -165,7 +170,7 @@ export default function ControlledForm(): JSX.Element {
           className={styles['accept-controlled']}
           classNameLabel={styles['default-label']}
           classNameInput={styles.accept}
-          hookData={register('acceptTerms')}
+          hookData={register('acceptTerms', { onChange: () => trigger('acceptTerms') })}
           errorMessage={errors && errors.acceptTerms && errors.acceptTerms?.message}
         />
       </div>

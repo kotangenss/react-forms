@@ -1,19 +1,16 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { RootState } from '../../store';
 import styles from './styles.module.scss';
-import { Form, setIsUpdated } from '../../store/dataSliceForms';
+import { setIsUpdated } from '../../store/dataSliceForms';
+import { getForms, getIsUpdated } from '../../store/selectors/forms';
 
 export default function Main(): JSX.Element {
   const dispatch = useDispatch();
-  const getFormList = (state: RootState): Form[] => state.dataForms.value;
-  const formList = useSelector(getFormList);
-
-  const getIsUpdated = (state: RootState): boolean => state.dataForms.isUpdated;
+  const formList = useSelector(getForms);
   const isUpdated = useSelector(getIsUpdated);
 
   const getClasses = (updated: boolean): string => {
-    return [styles['data-uncontrolled']].concat(updated ? [styles.updated] : []).join(' ');
+    return [styles.form].concat(updated ? [styles.updated] : []).join(' ');
   };
 
   useEffect(() => {

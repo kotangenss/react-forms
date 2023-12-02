@@ -27,6 +27,7 @@ button {
   border: 1px solid $defaultOutline;
   border-radius: 5px;
   padding: 10px 0;
+  background: white;
 
   input[type='radio'] {
     outline: none;
@@ -85,6 +86,9 @@ button {
   font-size: 13px;
   text-align: center;
   margin: 5px 0 0;
+  position: relative;
+  z-index: 100;
+  background: white;
 }
 
 .input-container {
@@ -93,6 +97,7 @@ button {
 }
 
 .country-container {
+  margin-top: 4px;
   height: 85px;
 
   input {
@@ -119,6 +124,7 @@ button {
   border: 1px solid $defaultOutline;
   border-radius: 5px;
   padding: 10px 0 5px;
+  background: white;
 
   input {
     outline: none;
@@ -135,7 +141,7 @@ button {
   padding: 10px 0;
   background: $accent;
   margin-top: -4px;
-  z-index: 100;
+  z-index: 101;
   border-radius: 0 0 5px 5px;
 
   ul {

@@ -1,7 +1,6 @@
 @import '../../scss/allVariables.scss';
 
-.data-uncontrolled,
-.data-controlled {
+.form {
   box-sizing: border-box;
   padding: 5px 30px 25px;
   border-radius: 5px;
@@ -10,7 +9,6 @@
 
   img {
     max-width: 100%;
-    outline: 1px solid $defaultOutline;
     border-radius: 2px;
   }
 
@@ -18,21 +16,19 @@
     color: gray;
 
     span {
+      margin-left: 5px;
       color: black;
       font-weight: 700;
     }
   }
 }
 
-.data-uncontrolled {
-  margin-right: 20px;
-}
-
 .forms {
   display: flex;
   flex-wrap: wrap;
-  max-width: 80%;
+  max-width: 1300px;
   row-gap: 20px;
+  column-gap: 20px;
 }
 
 .updated {

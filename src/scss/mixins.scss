@@ -1,7 +1,6 @@
 @mixin label {
   font-weight: 400;
   line-height: 140%;
-  background: white;
   padding: 0 5px;
   z-index: 1;
 }
@@ -22,7 +21,7 @@
   padding: 9px 19px;
   border-radius: 3px;
   border: none;
-  color: #fff;
+  color: white;
   background-color: $accent;
   margin: 15px 0;
 
@@ -38,5 +37,6 @@
   &:disabled {
     background-color: $disabled;
     color: $disabled;
+    cursor: default;
   }
 }

@@ -18,8 +18,11 @@ const validationScheme = yup.object().shape({
   gender: yup.string().required('Gender field is required'),
   email: yup
     .string()
-    .email('Please include "@" and at least one period after "@"')
-    .required('Email field is required'),
+    .required('Email field is required')
+    .matches(
+      /@([-A-Za-z0-9]+\.){1,2}[-A-Za-z0-9]{2,}$/,
+      'Enter a valid domain for the email address, e.g.user@example.com'
+    ),
   password: yup
     .string()
     .transform((originalValue) => originalValue.trim())

@@ -1,4 +1,4 @@
-import { UseFormRegisterReturn, UseFormSetValue } from 'react-hook-form';
+import { UseFormRegisterReturn } from 'react-hook-form';
 import { DataControlled } from './formData';
 
 export interface InputProps {
@@ -40,7 +40,7 @@ export interface InputAutocompletePropsUncontrolled extends InputAutocompletePro
 export interface InputAutocompletePropsControlled extends InputAutocompleteProps {
   hookData: UseFormRegisterReturn<'country'>;
   errorMessage?: string;
-  setValue: UseFormSetValue<DataControlled>;
+  setValue: (name: keyof DataControlled, value: string) => void;
 }
 
 export interface InputSelectProps extends InputProps {
