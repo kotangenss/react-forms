@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
   TextInput,
@@ -9,10 +9,10 @@ import {
   AutocompleteInput,
 } from '../../inputs/forUncontrolled';
 import { setDataValue, setIsUpdated } from '../../../store/dataSliceUncontrolled';
-import countryList from '../../../utils/countries';
 import styles from '../styles.module.scss';
 import validation from '../../../utils/validation';
 import { Data, FormError } from '../../../interfaces/formData';
+import { RootState } from '../../../store';
 
 function prepareFormErrors(errors: Record<keyof Data, { message: string }>): FormError {
   return {
@@ -62,6 +62,8 @@ export default function UncontrolledForm(): JSX.Element {
   const acceptTermsRef = useRef(null);
   const imageRef = useRef(null);
   const navigate = useNavigate();
+  const getDataValueCountries = (state: RootState): string[] => state.dataCountries.value;
+  const countryList = useSelector(getDataValueCountries);
   const suggestionSelected = (value: string): void => {
     const field: string = 'country';
     setFormData((prevData) => ({ ...prevData, [field]: value }));

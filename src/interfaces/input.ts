@@ -31,7 +31,10 @@ export interface InputAutocompleteProps {
   classNameLabel: string;
   classNameList: string;
   classNameListItem: string;
-  onSuggestionSelected?: (value: string) => void;
+}
+
+export interface InputAutocompletePropsUncontrolled extends InputAutocompleteProps {
+  onSuggestionSelected: (value: string) => void;
 }
 
 export interface InputAutocompletePropsControlled extends InputAutocompleteProps {

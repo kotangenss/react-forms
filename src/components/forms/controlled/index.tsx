@@ -1,6 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { DataControlled } from '../../../interfaces/formData';
 import { setDataValue, setIsUpdated } from '../../../store/dataSliceControlled';
@@ -11,10 +11,10 @@ import {
   FileInput,
   AutocompleteInput,
 } from '../../inputs/forControlled';
-import countryList from '../../../utils/countries';
 import styles from '../styles.module.scss';
 import validation from '../../../utils/validation';
 import { ValidationResult } from '../../../interfaces/validation';
+import { RootState } from '../../../store';
 
 const useYupValidationResolver = (): ((data: DataControlled) => ValidationResult) =>
   useCallback(async (data: DataControlled) => validation<DataControlled>(data), []);
@@ -32,6 +32,8 @@ export default function ControlledForm(): JSX.Element {
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const getDataValueCountries = (state: RootState): string[] => state.dataCountries.value;
+  const countryList = useSelector(getDataValueCountries);
 
   const onSubmit: SubmitHandler<DataControlled> = (data): void => {
     const file = data.image[0];
@@ -44,8 +46,6 @@ export default function ControlledForm(): JSX.Element {
     dispatch(setIsUpdated(true));
     navigate('/');
   };
-
-  console.log(dirtyFields);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

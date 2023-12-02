@@ -75,11 +75,4 @@ const validationScheme = yup.object().shape({
   acceptTerms: yup.boolean().oneOf([true], 'You must accept the Terms and Conditions'),
 });
 
-// const validationSchema = yup.object().shape({
-//   name: yup
-//     .string()
-//     .required('Name field is required')
-//     .matches(/^[A-ZА-Я]/, 'The name must begin with a capital letter'),
-// });
-
 export default validationScheme;

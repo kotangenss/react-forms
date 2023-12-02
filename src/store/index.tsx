@@ -3,10 +3,12 @@ import type { PreloadedState } from '@reduxjs/toolkit';
 import { ToolkitStore } from '@reduxjs/toolkit/dist/configureStore';
 import dataReducerUncontrolled from './dataSliceUncontrolled';
 import dataReducerControlled from './dataSliceControlled';
+import dataReducerCountries from './dataSliceCountries';
 
 const rootReducer = combineReducers({
   dataUncontrolled: dataReducerUncontrolled,
   dataControlled: dataReducerControlled,
+  dataCountries: dataReducerCountries,
 });
 
 export const store = configureStore({

@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
-import { InputAutocompleteProps } from '../../../../interfaces/input';
+import { InputAutocompletePropsUncontrolled } from '../../../../interfaces/input';
 
-const AutocompleteInput = React.forwardRef<HTMLInputElement, InputAutocompleteProps>(
+const AutocompleteInput = React.forwardRef<HTMLInputElement, InputAutocompletePropsUncontrolled>(
   (props, ref) => {
     const {
       items,
@@ -22,7 +22,7 @@ const AutocompleteInput = React.forwardRef<HTMLInputElement, InputAutocompletePr
 
       if (value.length > 0) {
         const regex = new RegExp(`^${value}`, 'i');
-        newSuggestions = items.sort().filter((val: string) => regex.test(val));
+        newSuggestions = [...items].sort().filter((val: string) => regex.test(val));
       }
 
       setSuggestions(newSuggestions);

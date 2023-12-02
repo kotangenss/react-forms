@@ -24,7 +24,7 @@ export default function AutocompleteInput(props: InputAutocompletePropsControlle
 
     if (value.length > 0) {
       const regex = new RegExp(`^${value}`, 'i');
-      newSuggestions = items.sort().filter((val: string) => regex.test(val));
+      newSuggestions = [...items].sort().filter((val: string) => regex.test(val));
     }
 
     setSuggestions(newSuggestions);
