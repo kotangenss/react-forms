@@ -1,0 +1,93 @@
+@import '../../scss/allVariables.scss';
+
+.form {
+  box-sizing: border-box;
+  padding: 5px 30px 25px;
+  border-radius: 5px;
+  border: 1px solid $defaultInput;
+  width: 420px;
+
+  img {
+    max-width: 100%;
+    border-radius: 2px;
+  }
+
+  p {
+    color: gray;
+
+    span {
+      margin-left: 5px;
+      color: black;
+      font-weight: 700;
+    }
+  }
+}
+
+.forms {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1300px;
+  row-gap: 20px;
+  column-gap: 20px;
+}
+
+.updated {
+  animation: animation 3s ease infinite;
+}
+
+@keyframes animation {
+  0% {
+    scale: 1.03;
+    outline: 3px solid $defaultInput;
+  }
+
+  10% {
+    scale: 1;
+    outline: 3px solid $accent;
+  }
+
+  20% {
+    scale: 1.03;
+    outline: 3px solid $defaultInput;
+  }
+
+  30% {
+    scale: 1;
+    outline: 3px solid $accent;
+  }
+
+  40% {
+    scale: 1.03;
+    outline: 3px solid $defaultInput;
+  }
+
+  50% {
+    scale: 1;
+    outline: 3px solid $accent;
+  }
+
+  60% {
+    scale: 1.03;
+    outline: 3px solid $defaultInput;
+  }
+
+  70% {
+    scale: 1;
+    outline: 3px solid $accent;
+  }
+
+  80% {
+    scale: 1.03;
+    outline: 3px solid $defaultInput;
+  }
+
+  90% {
+    scale: 1;
+    outline: 3px solid $accent;
+  }
+
+  100% {
+    scale: 1.03;
+    outline: 3px solid $defaultInput;
+  }
+}

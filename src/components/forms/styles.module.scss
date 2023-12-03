@@ -1,0 +1,163 @@
+@import '../../scss/allVariables.scss';
+
+button {
+  @include button;
+
+  &:disabled {
+    color: gray;
+  }
+}
+
+.default-label {
+  @include label;
+}
+
+.default-input {
+  @include input;
+  outline: 1px solid $defaultOutline;
+}
+
+.gender-label {
+  line-height: 0;
+}
+
+.gender {
+  display: flex;
+  justify-content: space-evenly;
+  border: 1px solid $defaultOutline;
+  border-radius: 5px;
+  padding: 10px 0;
+  background: white;
+
+  input[type='radio'] {
+    outline: none;
+    height: 15px;
+  }
+}
+.gender-wrapper {
+  display: flex;
+}
+
+.countries {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+
+  label {
+    @include label;
+  }
+
+  select {
+    padding: 5px 10px;
+    height: 40px;
+  }
+}
+
+.file-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  label {
+    @include label;
+  }
+
+  input {
+    margin-top: 5px;
+  }
+}
+
+.accept-controlled {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+
+  input {
+    width: 15px;
+    outline: none;
+    margin: 0;
+  }
+}
+
+.error {
+  color: $error;
+  font-size: 13px;
+  text-align: center;
+  margin: 5px 0 0;
+  position: relative;
+  z-index: 100;
+  background: white;
+}
+
+.input-container {
+  height: 80px;
+  margin-bottom: 5px;
+}
+
+.country-container {
+  margin-top: 4px;
+  height: 85px;
+
+  input {
+    box-sizing: border-box;
+    border-radius: 5px;
+    width: 100%;
+    height: 40px;
+    padding: 0 15px;
+  }
+}
+
+.gender-container {
+  height: 70px;
+  margin-top: 5px;
+
+  p {
+    line-height: 0;
+    margin: 0 0 10px;
+  }
+}
+
+.file-container {
+  height: 75px;
+  border: 1px solid $defaultOutline;
+  border-radius: 5px;
+  padding: 10px 0 5px;
+  background: white;
+
+  input {
+    outline: none;
+    font-size: 13px;
+  }
+}
+
+.accept-container {
+  height: 45px;
+}
+
+.search-list {
+  position: relative;
+  padding: 10px 0;
+  background: $accent;
+  margin-top: -4px;
+  z-index: 101;
+  border-radius: 0 0 5px 5px;
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    width: auto;
+  }
+}
+
+.suggestion-link {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+
+  button {
+    width: 100%;
+  }
+}
